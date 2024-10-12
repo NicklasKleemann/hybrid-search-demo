@@ -2,7 +2,7 @@
 
 {% block content %}
     {% if initialPage %}
-        <p style="color:grey">Try some searches like "How do I make YouTube search better with NLP" with several variations of Alpha values between 0 and 1 </p>
+        <p style="color:grey">Searching for queries within the DLBCL report</p>
     {% endif %}
     <form method="post">
         <input type="text" name="search"
@@ -24,7 +24,11 @@
                 <div class="message">
                     <a href="{{ line['metadata']['url'] }}" target="none">{{ line['metadata']['title'] }}</a>
                     <small>(Score: {{ line['score'] }})</small><br />
-                    <small>{{ line['metadata']['content'][0:1000]}}...</small>
+                    {% if 'chunk' in line['metadata'] %}
+                        <small>{{ line['metadata']['chunk'][0:3000]}}...</small>
+                    {% else %}
+                        <small>No content available.</small>
+                    {% endif %}
                 </div><br />
             {% endfor %}
 
